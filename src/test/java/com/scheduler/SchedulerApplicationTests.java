@@ -1,4 +1,4 @@
-package com.example.scheduler;
+package com.scheduler;
 
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.Test;

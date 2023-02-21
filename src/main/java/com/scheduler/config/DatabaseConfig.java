@@ -1,4 +1,4 @@
-package com.example.scheduler.config;
+package com.scheduler.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -36,11 +36,20 @@ public class DatabaseConfig {
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
+        // application.properties에서 mybatis 설정을 읽을 수 있도록
+        factoryBean.setMapperLocations(context.getResources("classpath:/mappers/**/*Mapper.xml"));
+        factoryBean.setConfiguration(mybatisConfig());
         return factoryBean.getObject();
     }
 
     @Bean
     public SqlSessionTemplate sqlSession() throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory());
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration mybatisConfig() {
+        return new org.apache.ibatis.session.Configuration();
     }
 }
