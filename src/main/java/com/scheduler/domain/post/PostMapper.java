@@ -22,5 +22,5 @@ public interface PostMapper {
     List<PostResponse> findAll();
 
     // 게시글 갯수 카운팅해서 리턴
-    int count();
+//    int count();
 }
